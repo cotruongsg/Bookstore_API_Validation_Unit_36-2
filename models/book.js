@@ -147,7 +147,12 @@ class Book {
     const columns = Object.keys(data);
     const values = Object.values(data);
     values.push(isbn);
-  
+    
+    // the map function to iterate over the columns array, which contains the names of the properties you want to update. 
+    // For each column name (col) in the array, you're creating a string that represents a single clause in the SET portion of the SQL UPDATE statement. 
+    // columns.map((col, index) => ${col}=$${index + 1}): This maps each column name (col) to a string in the form of "column_name=$1", where $1, $2, $3, and so on are placeholders for the corresponding values in the values array.
+    // .join(', '): After mapping, the resulting array of clause strings is joined together using a comma and space (', ') as the separator. This creates a comma-separated list of clauses, which forms the complete SET part of the UPDATE statement.
+    // "author=$1, title=$2, year=$3"
     const setClauses = columns.map((col, index) => `${col}=$${index + 1}`).join(', ');
   
     const query = `
